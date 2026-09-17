@@ -5,9 +5,9 @@ const input = require("input");
 
 const apiID = parseInt(process.env.API_ID);
 const apiHash = process.env.API_HASH;
-const StringSession = new StringSession(process.env.STRING_SESSION || "");
+const stringSession = new StringSession(process.env.STRING_SESSION || "");
 
-const client = new TelegramClient(StringSession, apiID, apiHash, {
+const client = new TelegramClient(stringSession, apiID, apiHash, {
     connectionRetries: 5,
 });
 
@@ -30,7 +30,7 @@ const client = new TelegramClient(StringSession, apiID, apiHash, {
     console.log("\nThen restart the script.");
     process.exit(0);
   }
-  await client.sendMessage("target_group_username", {
+  await client.sendMessage("rig_test_01", {
     message: "Hi everyone! I'm offering IELTS and SAT tutoring. DM me for details!",
   });
   
