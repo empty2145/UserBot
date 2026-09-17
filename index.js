@@ -11,3 +11,14 @@ const client = new TelegramClient(StringSession, apiID, apiHash, {
     connectionRetries: 5,
 });
 
+(async () => {
+    console.log("Authentificating...");
+
+    await client.start({
+        phoneNumber: async () => await input.text("Number: "),
+        password: async () => await input.text("Password: "),
+        phoneCode: async () => await input.text("Code from Telegram: "),
+        onError: (err) => console.log(err),
+    })
+});
+
