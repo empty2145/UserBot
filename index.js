@@ -20,5 +20,21 @@ const client = new TelegramClient(StringSession, apiID, apiHash, {
         phoneCode: async () => await input.text("Code from Telegram: "),
         onError: (err) => console.log(err),
     })
-});
+
+    console.log("Connected!");
+
+    if (!process.env.STRING_SESSION) {
+    console.log("\n=== ACTION REQUIRED ===");
+    console.log("Copy the string below and paste it as your STRING_SESSION in the .env file:\n");
+    console.log(client.session.save());
+    console.log("\nThen restart the script.");
+    process.exit(0);
+  }
+  await client.sendMessage("target_group_username", {
+    message: "Hi everyone! I'm offering IELTS and SAT tutoring. DM me for details!",
+  });
+  
+  console.log("Message sent!");
+  process.exit(0);
+})();
 
