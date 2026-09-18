@@ -12,23 +12,20 @@ const client = new TelegramClient(stringSession, apiID, apiHash, {
 });
 
 function randomizer() {
-  const foods = [
-    "",
-    "",
-    "",
-  ]
+  const foods = [IELTS1, IELTSSAT, SAT1]
+  const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  return `${randomChoice(foods)}`;
 
-  
 }
 
 (async () => {
-    console.log("Authentificating...");
+    console.log("Connecting using saved session...");
 
-    await client.start({})
+    await client.connect({});
 
     console.log("Connected!");
 
-    const adMessage;
+    const adMessage = randomizer();
     console.log(`Prepared Ad: "${adMessage}"`)
 
   
