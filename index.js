@@ -121,3 +121,6 @@ function randomizer() {
   
 })();
 
+const http = require('http');
+http.createServer((req, res) => res.end('Bot is running alive and well.')).listen(process.env.PORT || 3000);
+console.log("Dummy web server running...");
