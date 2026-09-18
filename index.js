@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
-const input = require("input");
+const cron = require("node-cron");
 
 const apiID = parseInt(process.env.API_ID);
 const apiHash = process.env.API_HASH;
@@ -86,24 +86,30 @@ function randomizer() {
 }
 
 (async () => {
-    console.log("Connecting using saved session...");
-
-    await client.connect({});
-
-    console.log("Connected!");
-
+  console.log("Connecting using saved session...");
+  await client.connect({});
+  console.log("Connected!");
+  // minute hour day month friday
+  cron.schedule("0 17 * * 5", async () => {
+    console.log("Cron triggered! Preparing to send ad...");
+    
     const adMessage = randomizer();
     console.log(`Prepared Ad: "${adMessage}"`)
+    
+    try {
+      await client.sendMessage("rig_test_01", {
+        message: adMessage,
+      });
+      console.log("Message sent!");
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+    //process.exit(0);
+
+  })
+
+
 
   
-  try {
-    await client.sendMessage("rig_test_01", {
-      message: adMessage,
-    });
-    console.log("Message sent!");
-  } catch (error) {
-    console.error("Error sending message:", error);
-  }
-  process.exit(0);
 })();
 
