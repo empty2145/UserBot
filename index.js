@@ -105,7 +105,7 @@ function randomizer() {
     console.log(`Prepared Ad: "${adMessage}"`)
     
     try {
-      await client.sendMessage("rig_test_01", {
+      await client.sendMessage("nututors", {
         message: adMessage,
       });
       console.log(`[${new Date().LocaleString()}] Message sent!`);
