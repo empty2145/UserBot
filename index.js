@@ -10,6 +10,7 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
 const client = new TelegramClient(stringSession, apiID, apiHash, {
     connectionRetries: 5,
 });
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
 const IELTS1 = `🇬🇧 Подготовка к IELTS без воды и скучных учебников!
@@ -90,9 +91,16 @@ function randomizer() {
   await client.connect({});
   console.log("Connected!");
   // minute hour day month friday
-  cron.schedule("0 17 * * 5", async () => {
-    console.log("Cron triggered! Preparing to send ad...");
+  cron.schedule("0 8,11,14,17,20,23 * * *", async () => {
+    console.log(`[${new Date().toLocaleString()}]Cron triggered! Adding human jitter...`);
     
+    const randomMinutes = Math.floor(Math.random() * 15) + 1;
+    const delaysMs = randomMinutes * 60 * 1000;
+
+    console.log(`Waiting for ${randomMinutes} minutes before posting...`);
+    await sleep(delayMs);
+
+
     const adMessage = randomizer();
     console.log(`Prepared Ad: "${adMessage}"`)
     
@@ -100,7 +108,7 @@ function randomizer() {
       await client.sendMessage("rig_test_01", {
         message: adMessage,
       });
-      console.log("Message sent!");
+      console.log(`[${new Date().LocaleString()}] Message sent!`);
     } catch (error) {
       console.error("Error sending message:", error);
     }
