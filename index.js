@@ -95,7 +95,7 @@ function randomizer() {
     console.log(`[${new Date().toLocaleString()}]Cron triggered! Adding human jitter...`);
     
     const randomMinutes = Math.floor(Math.random() * 15) + 1;
-    const delaysMs = randomMinutes * 60 * 1000;
+    const delayMs = randomMinutes * 60 * 1000;
 
     console.log(`Waiting for ${randomMinutes} minutes before posting...`);
     await sleep(delayMs);
